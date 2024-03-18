@@ -14,10 +14,12 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
-    scheduledTime: {
-        type: String,
-        required: true,
-    },
+    scheduledTime: [
+        {
+            type: String,
+            required: true,
+        }
+    ],
     phoneNumber: {
         type: Number,
         required: true,

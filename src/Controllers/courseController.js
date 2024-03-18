@@ -3,7 +3,7 @@ const Course = require("../models/Course")
 const create = async (req, res) => {
     try {
         const { name, description, teacher, scheduledTime, phoneNumber, image } = req.body
-        if(!name || !description || !teacher || !scheduledTime || !phoneNumber || !image) {
+        if(!name || !description || !teacher || scheduledTime === undefined || scheduledTime.length < 1 || !phoneNumber || !image) {
             return res.status(400).json({message: "Barcha qatorlarni to\'ldiring"})
         }
 
@@ -27,6 +27,7 @@ const create = async (req, res) => {
             data: createdCourse
         })
     }catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -46,6 +47,7 @@ const getALl = async (req, res) => {
             quantity,
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -67,6 +69,7 @@ const getById = async (req, res) => {
             data: course,
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -79,20 +82,27 @@ const updateById = async (req, res) => {
         }
 
         const { name, description, teacher, scheduledTime, phoneNumber, image } = req.body
-        if(!name || !description || !teacher || !scheduledTime || !phoneNumber || !image) {
+        if(!name || !description || !teacher || scheduledTime === undefined || scheduledTime.length < 1 || !phoneNumber || !image ) {
             return res.status(400).json({message: "Barcha qatorlarni to\'ldiring"})
         }
 
-        const updatedCourse = await Course.findByIdAndUpdate(id, {name, description, teacher, scheduledTime, phoneNumber, image})
+        const existingCourse = await Course.findOne({name})
+        if(existingCourse && existingCourse._id != id) {
+            return res.status(400).json({message: "Bunday kurs allaqachon mavjud"})
+        }
+
+        const updatedCourse = await Course.findByIdAndUpdate(id, {name, description, teacher, scheduledTime, phoneNumber, image}, {new: true})
         if(!updatedCourse) {
             return res.status(400).json({message: "Bunday ID-ga ega kurs topilmadi"})
         }
+
 
         res.status(200).json({
             message: "Kurs muvaffaqiyatli yangilandi",
             data: updatedCourse,
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -118,6 +128,7 @@ const deleteById = async (req, res) => {
             data: deletedCourse
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
