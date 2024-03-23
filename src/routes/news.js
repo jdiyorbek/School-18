@@ -3,8 +3,8 @@ const { create, getAll, getById, updateById, deleteById } = require("../Controll
 const adminChecker = require("../middleware/adminChecker")
 
 router.post("/", adminChecker, create)
-router.get("/", adminChecker, getAll)
-router.get("/:id", adminChecker, getById)
+router.get("/", getAll)
+router.get("/:id", getById)
 router.put("/:id", adminChecker, updateById)
 router.delete("/:id", adminChecker, deleteById)
 
