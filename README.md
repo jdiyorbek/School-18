@@ -11,6 +11,8 @@ $ npm run start
 
 ## Documentation
 
+method | route | auth | description
+
 News
 ```bash
 GET /api/news/:id | common | ID orqali yangilikni olish
