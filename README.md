@@ -31,6 +31,41 @@ body {
 }
 ```
 
+Admin
+```bash
+GET /api/admin/profile | admin | Admin profili
+query {}
+body {}
+
+PUT /api/admin/settings/change-username | admin | Username-ni o\'zgartirsh
+query {}
+body {
+    username: {
+        type: String,
+        required: true,
+    }
+}
+response {
+    message : "",
+    newToken: new token,
+    data: Updated Admin,
+}
+
+PUT /api/admin/settings/change-password | admin | Parolni o\'zgartirsh
+query {}
+body {
+    password: {
+        type: String,
+        required: true,
+    }
+}
+response {
+    message : "",
+    data: Updated Admin,
+    newToken: new token,
+}
+```
+
 News
 ```bash
 GET /api/news/:id | common | ID orqali yangilikni olish
@@ -418,4 +453,21 @@ body {
 DELETE /api/library/:id | admin | ID orqali kitobni o\'chirish
 query {}
 body {}
+```
+
+Upload
+```bash
+POST /api/upload/book | admin | Kitobni PDF shaklida yuklash
+query {}
+body {}
+form-data {
+  book: PDF_FILE,
+}
+
+POST /api/upload/image | admin | Rasm yuklash
+query {}
+body {}
+form-data {
+  image: IMG_FILE,
+}
 ```
