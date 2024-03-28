@@ -35,7 +35,7 @@ const uploadImage = async (req, res) => {
     }
 }
 
-const uploadFile = async (req, res) => {
+const uploadPDF = async (req, res) => {
     try {
         if(!req.file) {
             return res.status(400).json({message: "Fayl yuklanmagan"})
@@ -68,4 +68,4 @@ const uploadFile = async (req, res) => {
     }
 }
 
-module.exports = { uploadImage, uploadFile }
+module.exports = { uploadImage, uploadPDF }
