@@ -1,5 +1,6 @@
-const Admin = require("../models/Admin")
+const Admin = require("../models/Admin");
 const {generateToken} = require("../db/jwtToken");
+const bcrypt = require("bcrypt")
 
 const profile = async (req, res) => {
     try {
@@ -38,8 +39,46 @@ const updateUsername = async (req, res) => {
             },
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
 
-module.exports = { profile, updateUsername }
+const updatePassword = async (req, res) => {
+    try {
+        const { password } = req.body
+        if(!password) {
+            return res.status(400).json({message: "Yangi parol yuborilmagan"})
+        }
+        const match = await bcrypt.compare(password, req.adminData.password)
+
+        console.log(match)
+        if(match) {
+            return res.status(400).json({message: "Kiritilgan va joriy parol bir xil. Iltimos, boshqa parol kiriting."})
+        }
+
+        const hashed = await bcrypt.hash(password, 9)
+
+        const updatedAdmin = await Admin.findOneAndUpdate({username: req.adminData.username}, {password: hashed}, {new: true})
+
+        if(!updatedAdmin) {
+            return res.status(500).json({message: "Admin parolini yangilashda xatolik yuz berdi"})
+        }
+
+        const token = generateToken(updatedAdmin._id, updatedAdmin.username, updatedAdmin.password)
+
+        res.status(200).json({
+            message: "Admin paroli muvaffaqiyatli yangilandi",
+            newToken: token,
+            data: {
+                username: updatedAdmin.username,
+                email: updatedAdmin.email,
+            },
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({message: "Serverda ichki xatolik"})
+    }
+}
+
+module.exports = { profile, updateUsername, updatePassword }
