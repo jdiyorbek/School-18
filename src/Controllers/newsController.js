@@ -21,6 +21,7 @@ const create = async (req, res) => {
             data: createdNews,
         })
     }catch(err){
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -45,6 +46,7 @@ const getAll = async (req, res) => {
             }
         })
     }catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -64,6 +66,7 @@ const getById = async (req, res) => {
             data: news
         })
     }catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -94,6 +97,7 @@ const updateById = async (req, res) => {
             data: updatedNews,
         })
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
@@ -112,6 +116,7 @@ const deleteById = async (req, res) => {
 
         res.status(200).json({message: "Yangilik muvaffaqiyatli o\'chirildi"})
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
     }
 }
