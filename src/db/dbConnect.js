@@ -2,10 +2,7 @@ const mongoose = require("mongoose")
 
 const dbConnect = async () => {
     return mongoose
-        .connect(process.env.MONGODB, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-          })
+        .connect(process.env.MONGODB)
         .then(() => {
             console.log("Ulandi📚")
         })
