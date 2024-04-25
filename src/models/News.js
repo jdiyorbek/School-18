@@ -25,6 +25,7 @@ const newsSchema = new Schema({
     },
     views: {
         type: Number,
+        required: true,
         deafult: 0,
     },
     

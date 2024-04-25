@@ -8,7 +8,7 @@ const create = async (req, res) => {
         }
 
         const newNews = new News({
-            title, description, text, image, isPublic
+            title, description, text, image, isPublic, views: 0,
         })
 
         const createdNews = await newNews.save()
@@ -51,6 +51,26 @@ const getAll = async (req, res) => {
     }
 }
 
+const getByIdForAdmin = async (req, res) => {
+    try {
+        const { id } = req.params
+        if(!id) {
+            return res.status(400).json({message: "REQ.PARAMS-ga ID biriktiring"})
+        }
+        const news = await News.findById(id)
+        if(!news) {
+            return res.status(404).json({message: "Bunday ID-ga ega yangilik topilmadi"})
+        }
+        res.status(200).json({
+            message: "Yangilik topildi",
+            data: news
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({message: "Serverda ichki xatolik"})
+    }
+}
+
 const getById = async (req, res) => {
     try {
         const { id } = req.params
@@ -65,6 +85,9 @@ const getById = async (req, res) => {
             message: "Yangilik topildi",
             data: news
         })
+        if(typeof news.views === "number") {
+            await News.findByIdAndUpdate(id, {views: news.views + 1})
+        }
     }catch (err) {
         console.log(err)
         res.status(500).json({message: "Serverda ichki xatolik"})
@@ -121,4 +144,4 @@ const deleteById = async (req, res) => {
     }
 }
 
-module.exports = {create, getAll, getById, updateById, deleteById}
+module.exports = {create, getAll, getById, updateById, deleteById, getByIdForAdmin}
