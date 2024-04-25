@@ -4,7 +4,7 @@ const adminChecker = require("../middleware/adminChecker")
 
 router.post("/", adminChecker, create)
 router.get("/", getAll)
-router.get("/for-admin", adminChecker, getByIdForAdmin)
+router.get("/for-admin/:id", adminChecker, getByIdForAdmin)
 router.get("/:id", getById)
 router.put("/:id", adminChecker, updateById)
 router.delete("/:id", adminChecker, deleteById)

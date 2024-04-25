@@ -72,6 +72,10 @@ GET /api/news/:id | common | ID orqali yangilikni olish
 query {}
 body {}
 
+GET /api/news/for-admin/:id | common | ID orqali yangilikni olish
+query {}
+body {}
+
 GET /api/news/ | common | Barcha yangiliklarni olish
 query {
     limit: {

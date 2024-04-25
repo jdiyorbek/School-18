@@ -77,7 +77,7 @@ const getById = async (req, res) => {
         if(!id) {
             return res.status(400).json({message: "REQ.PARAMS-ga ID biriktiring"})
         }
-        const news = await News.findById(id)
+        const news = await News.findOne({_id: id, isPublic: true})
         if(!news) {
             return res.status(404).json({message: "Bunday ID-ga ega yangilik topilmadi"})
         }
