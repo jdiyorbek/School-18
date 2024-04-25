@@ -72,7 +72,7 @@ GET /api/news/:id | common | ID orqali yangilikni olish
 query {}
 body {}
 
-GET /api/news/for-admin/:id | common | ID orqali yangilikni olish
+GET /api/news/for-admin/:id | common | ID orqali yangilikni olish Adminlar uchun
 query {}
 body {}
 
