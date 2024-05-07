@@ -475,3 +475,62 @@ form-data {
   image: IMG_FILE,
 }
 ```
+
+Analytics
+```bash
+GET /api/analytics/views | admin | Analitikani ko\'rishlar soni bo\'yicha olish
+query {
+    type: {
+	  	type: String,
+	  	default: none,
+	  	doc: "Kerakli tur analitikasi",
+        required: true,
+        enum: ["news", "book"],
+	},
+    limit: {
+	  	type: Number,
+	  	default: 10,
+	  	doc: "Ro'yxat chegarasi"
+	},
+    sortBy: {
+        type: String,
+        default: "mostViews",
+        doc: "Saralash",
+        emun: ["mostViews", "leastViews"]
+    },
+    fromTo: {
+        type: "String",
+        default: "theOldest,currentTime",
+        doc: "Bu orqali analitikani vaqt oralig'ini belgilash mumkin. EX: /api/analytics/views?fromTo=04.15.2013,5.2.2024 | fromTo=oy.kun.yil,oy.kun.yil"
+    }
+}
+body {}
+
+GET /api/analytics/region | admin | Analitikani hududlar kesimida olish
+query {
+    type: {
+	  	type: String,
+	  	default: none,
+	  	doc: "Kerakli tur analitikasi",
+        required: true,
+        enum: ["news", "book"],
+	},
+    limit: {
+	  	type: Number,
+	  	default: 10,
+	  	doc: "Ro'yxat chegarasi"
+	},
+    sortBy: {
+        type: String,
+        default: "mostVisitedCountry",
+        doc: "Saralash",
+        emun: ["mostVisitedCountry", "leastVisitedCountry"]
+    },
+    fromTo: {
+        type: "String",
+        default: "theOldest,currentTime",
+        doc: "Bu orqali analitikani vaqt oralig'ini belgilash mumkin. EX: /api/analytics/views?fromTo=04.15.2013,5.2.2024 | fromTo=oy.kun.yil,oy.kun.yil"
+    }
+}
+body {}
+```
