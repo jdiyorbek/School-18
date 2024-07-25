@@ -1,11 +1,27 @@
-## Installation
+## Deployment
+Language
+```
+Node
+```
+
+Github branch
+```
+main
+```
+
+Root Directory
+```
+src/index.js
+```
+
+
+Build command
 ```bash
 $ npm install
 ```
 
-## Running the app
+Start command
 ```bash
-# development
 $ npm run start
 ```
 
