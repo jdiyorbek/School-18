@@ -11,13 +11,13 @@ main
 
 Root Directory
 ```
-src/index.js
+./
 ```
 
 
 Build command
 ```bash
-$ npm install
+$ npm run build
 ```
 
 Start command
